@@ -1,0 +1,7 @@
+{
+    "dbuser": "root",
+    "dbpassword": "erp",
+    "dbhost": "localhost",
+    "dbport": 3307,
+    "dbname": "pyback"
+}
