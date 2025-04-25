@@ -32,16 +32,12 @@ def get_model(doctype: str):
     Raises:
         HTTPException: If the model corresponding to the doctype is not found.
     """
-    # Convert doctype to lowercase and capitalize the first letter for the model class name
-    doctype_lower = doctype.lower()
-    model_name = doctype_lower.capitalize()  # Assuming model class is named like 'DocType', 'Item', etc.
+    doctype_lower = doctype.lower().replace(" ", "_")
+    model_name = doctype.replace(" ", "")
 
     try:
-        # Dynamically import the module based on the doctype
         module = importlib.import_module(f"apps.models.{doctype_lower}")
-        # Get the model class from the imported module
         model_class = getattr(module, model_name)
         return model_class
     except (ModuleNotFoundError, AttributeError) as e:
-        # Raise HTTPException if model class or module is not found
         raise HTTPException(status_code=404, detail=f"Model for doctype '{doctype}' not found")
